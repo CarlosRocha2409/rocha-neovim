@@ -65,10 +65,10 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-s>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
+                ['<A-p>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<A-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<A-s>'] = cmp.mapping.confirm({ select = true }),
+                ["<A-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
@@ -77,6 +77,8 @@ return {
                 { name = 'buffer' },
             })
         })
+
+        vim.keymap.set("n","<leader>gf", vim.lsp.buf.format,{})
 
         vim.diagnostic.config({
             -- update_in_insert = true,
