@@ -78,7 +78,7 @@ return {
             })
         })
 
-        vim.keymap.set("n","<leader>gf", vim.lsp.buf.format,{})
+        vim.keymap.set("n","<leader>f", vim.lsp.buf.format,{})
 
         vim.diagnostic.config({
             -- update_in_insert = true,
