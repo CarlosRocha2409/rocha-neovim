@@ -33,7 +33,6 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
@@ -45,7 +44,7 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-				    runtime = { version = "Lua 5.1" },
+                                runtime = { version = "Lua 5.1" },
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 }
@@ -53,6 +52,34 @@ return {
                         }
                     }
                 end,
+                ["html"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.html.setup({
+                        capabilities = capabilities,
+                        filetypes = { "html", "templ" },
+                    })
+                end,
+                ["htmx"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.htmx.setup({
+                        capabilities = capabilities,
+                        filetypes = { "html", "templ" },
+                    })
+                end,
+                ["tailwindcss"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.tailwindcss.setup({
+                        apabilities = capabilities,
+                        filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+                        settings = {
+                            tailwindCSS = {
+                                includeLanguages = {
+                                    templ = "html",
+                                },
+                            },
+                        },
+                    })
+                end
             }
         })
 
@@ -78,12 +105,19 @@ return {
             })
         })
 
-        vim.keymap.set("n","<leader>f", vim.lsp.buf.format,{})
+        cmp.config.formatting = {
+            format = function(entry, item)
+                cmp.config.formatting.format(entry, item)
+                return require("tailwindcss-colorizer-cmp").formatter(entry,item)
+            end
+        }
+
+        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
 
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
-                focusable = false,
+                focusable = true,
                 style = "minimal",
                 border = "rounded",
                 source = "always",

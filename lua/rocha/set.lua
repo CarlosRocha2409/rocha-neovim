@@ -3,8 +3,8 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
@@ -31,3 +31,5 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.keymap.set("n","<leader>ne","<Cmd>Neotree toggle<CR>")
+
+vim.filetype.add({ extension = { templ = "templ" } })
