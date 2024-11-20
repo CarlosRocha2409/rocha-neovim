@@ -11,6 +11,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "onsails/lspkind.nvim"
     },
 
     config = function()
@@ -24,6 +25,7 @@ return {
 
         require("fidget").setup({})
         require("mason").setup()
+        require('lspkind').init()
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
@@ -102,15 +104,51 @@ return {
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
                 { name = 'buffer' },
-            })
+            }),
+            window = {
+                completion = cmp.config.window.bordered(
+                    {
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                        col_offset = -3,
+                        side_padding = 0,
+                    }
+                ),
+
+                documentation = cmp.config.window.bordered(),
+            },
+            formatting = {
+                fields = { "kind", "abbr", "menu" },
+                format = function(entry, item)
+                    local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, item)
+                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                    kind.kind = " " .. (strings[1] or "") .. " "
+                    kind.menu = "    (" .. (strings[2] or "") .. ")"
+                    return require("tailwindcss-colorizer-cmp").formatter(entry, kind)
+                end
+            }
+        })
+        cmp.setup.cmdline({ '/', '?' }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' },
+            }
         })
 
-        cmp.config.formatting = {
-            format = function(entry, item)
-                cmp.config.formatting.format(entry, item)
-                return require("tailwindcss-colorizer-cmp").formatter(entry,item)
-            end
-        }
+        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                {
+                    name = 'cmdline',
+                    option = {
+                        ingnore_cmds = { 'Man', '!' }
+                    }
+                }
+            }),
+            matching = { disallow_symbol_nonprefix_matching = false }
+        })
 
         vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
 

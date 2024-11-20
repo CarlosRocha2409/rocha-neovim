@@ -63,3 +63,4 @@ vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
 
 vim.keymap.set("n", "<leader>sv", ":vsp<CR>");
 vim.keymap.set("n", "<leader>sh", ":sp<CR>");
+vim.keymap.set("n","<leader>nd", "<cmd>NoiceDismiss<CR>");
