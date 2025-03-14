@@ -13,7 +13,7 @@ return {
     "j-hui/fidget.nvim",
     "onsails/lspkind.nvim",
     "jose-elias-alvarez/null-ls.nvim",
-    "pmizio/typescript-tools.nvim",
+    -- "pmizio/typescript-tools.nvim",
   },
 
   config = function()
@@ -174,7 +174,7 @@ return {
       },
     })
 
-    require("typescript-tools").setup {}
+    -- require("typescript-tools").setup {}
 
   end
 }
