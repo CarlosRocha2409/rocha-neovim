@@ -33,7 +33,6 @@ return {
             f = "<Esc>",
           },
           k = {
-            d = "<Esc>",
             f = "<Esc>",
           },
         },
