@@ -17,7 +17,7 @@ return {
             transparent_background = true, -- disables setting the background color.
 
         })
-        vim.cmd.colorscheme "catppuccin"
+        vim.cmd.colorscheme "tokyonight-storm"
         ColorNvim()
     end
 
