@@ -27,7 +27,7 @@ return {
         { section = "header", gap = 1 },
         { section = "keys", gap = 1, padding = { 2, 0 } },
         { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
-        { section = "startup" },
+        { text = "Whatever you are, be a good one", align="center" },
       },
 
 
@@ -88,7 +88,7 @@ return {
     { "<leader>sg", function() Snacks.picker.grep() end,                  desc = "Grep" },
     { "<leader>sw", function() Snacks.picker.grep_word() end,             desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
-    { '<leader>s"', function() Snacks.picker.registers() end,             desc = "Registers" },
+    { '<leader>sr"', function() Snacks.picker.registers() end,             desc = "Registers" },
     { '<leader>s/', function() Snacks.picker.search_history() end,        desc = "Search History" },
     { "<leader>sa", function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
     { "<leader>sb", function() Snacks.picker.lines() end,                 desc = "Buffer Lines" },
