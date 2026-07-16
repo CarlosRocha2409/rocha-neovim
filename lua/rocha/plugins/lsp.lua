@@ -12,7 +12,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "j-hui/fidget.nvim",
     "onsails/lspkind.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim"
     -- "pmizio/typescript-tools.nvim",
   },
 
@@ -97,7 +97,7 @@ return {
       mapping = cmp.mapping.preset.insert({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-s>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-k>'] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping.complete(),
       }),
       sources = cmp.config.sources({
@@ -155,6 +155,10 @@ return {
 
     vim.diagnostic.config({
       -- update_in_insert = true,
+      virtual_text = true,           -- Shows errors at the end of the line
+      signs = true,                  -- Shows icons in the gutter
+      update_in_insert = false,      -- Do not overwhelm screen while typing
+      underline = true,
       float = {
         focusable = true,
         style = "minimal",

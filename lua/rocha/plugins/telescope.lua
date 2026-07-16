@@ -1,17 +1,26 @@
 return {
     {
-
         "nvim-telescope/telescope.nvim",
-
-        tag = "0.1.5",
-
+        -- Track the stable branch instead of pinning an old, broken tag
+        branch = "master", 
         dependencies = {
-            "nvim-lua/plenary.nvim"
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
         },
 
         config = function()
-            require('telescope').setup({})
+            require('telescope').setup({
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown {}
+                    }
+                }
+            })
 
+            -- Load the extension AFTER setup
+            require("telescope").load_extension("ui-select")
+
+            -- Keymaps
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
             vim.keymap.set('n', '<C-p>', builtin.git_files, {})
@@ -30,21 +39,6 @@ return {
             end)
             vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
             vim.keymap.set('n', '<leader>ms', builtin.marks, {})
-        end
-    },
-
-    {
-        'nvim-telescope/telescope-ui-select.nvim',
-        config = function()
-            require("telescope").setup {
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown {
-                        }
-                    }
-                }
-            }
-            require("telescope").load_extension("ui-select")
         end
     }
 }
